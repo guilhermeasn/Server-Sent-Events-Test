@@ -15,14 +15,14 @@ while(connection_status() === 0) {
         $alert      = TRUE;
         $oldcontent = $newcontent;
     } elseif($alert ?? TRUE) {
-        echo 'data: data.txt inalterado, edite o arquivo!', "\n\n";
+        echo 'data: edite o arquivo data.txt!', "\n\n";
         $alert = FALSE;
     }
 
     while (ob_get_level() > 0) {
         ob_end_flush();
     }
-    
+
     flush();
 
     sleep(1);
