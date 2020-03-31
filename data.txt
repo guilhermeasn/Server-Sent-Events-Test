@@ -1,0 +1,1 @@
+testando server sent events com php e js

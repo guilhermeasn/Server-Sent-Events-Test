@@ -1,0 +1,52 @@
+<html>
+<head>
+   <meta charset="UTF-8">
+   <title>Server Sent Events Test</title>
+</head>
+<body>
+  <h2>Server Sent Events Test</h2>
+  <p id="waitStream">Aguarde ...</p>
+  <ul id="messageList"></ul>
+  <button id="closeStream">Encerrar a conexão</button>
+
+  <!-- Para suporte em navegadores antigos -->
+  <script src="EventSource.js"></script>
+
+  <script>
+    var button    = document.getElementById('closeStream');
+    var msgWait   = document.getElementById('waitStream');
+    var eventList = document.getElementById('messageList');
+    var evtSource = new EventSource('server.php');
+
+    console.dir(evtSource);
+
+    evtSource.onopen = function() {
+      addMessage('<strong>A conexão com o servidor está aberta!</strong>');
+      setTimeout(function() {
+        msgWait.style.display = 'none';
+      });
+    };
+
+    evtSource.onmessage = function(stream) {
+      addMessage("<strong>Mensagem do servidor: </strong>" + stream.data);
+    };
+
+    evtSource.onerror = function() {
+      addMessage("<strong>Ocorreu um erro na conexão com o servidor!</strong>");
+    };
+
+    button.onclick = function() {
+      addMessage('<strong>A conexão com o servidor está fechada!</strong>')
+    };
+
+    evtSource.addEventListener('fileRead', function(stream) {
+      addMessage("<strong>Leitura do arquivo data.txt: </strong>" + stream.data);
+    });
+
+    function addMessage(message) {
+      var newElement = document.createElement("li");
+      newElement.innerHTML = message;
+      eventList.appendChild(newElement);
+    }
+  </script>
+</body>
