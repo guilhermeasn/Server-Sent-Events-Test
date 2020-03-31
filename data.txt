@@ -1,1 +1,1 @@
-testando server sent events com php e js asd
+testando server sent events com php e js
