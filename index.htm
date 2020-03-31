@@ -35,13 +35,15 @@
       addMessage("<strong>Ocorreu um erro na conexão com o servidor!</strong>");
     };
 
-    button.onclick = function() {
-      addMessage('<strong>A conexão com o servidor está fechada!</strong>')
-    };
-
     evtSource.addEventListener('fileRead', function(stream) {
       addMessage("<strong>Leitura do arquivo data.txt: </strong>" + stream.data);
     });
+
+    button.onclick = function() {
+      this.style.display = 'none';
+      evtSource.close();
+      addMessage('<strong>A conexão com o servidor está fechada!</strong>');
+    };
 
     function addMessage(message) {
       var newElement = document.createElement("li");
